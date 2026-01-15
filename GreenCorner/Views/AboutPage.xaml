@@ -12,7 +12,7 @@
             <Label Text="We bring nature to your doorstep." 
                    HorizontalOptions="Center" FontAttributes="Italic" TextColor="{StaticResource Gray500}"/>
 
-            <Image Source="about_team.png" Aspect="AspectFill" HeightRequest="200" BackgroundColor="#E1E1E1"/>
+            <Image Source="dotnet_bot.png" Aspect="AspectFill" HeightRequest="200" BackgroundColor="#E1E1E1"/>
 
             <Label Text="Our Mission" Style="{StaticResource Headline2}" Margin="0,10,0,0"/>
             <Label Text="At GreenCorner, we believe that everyone deserves a little bit of nature in their lives. We source the best plants from sustainable growers and deliver them to you with care."

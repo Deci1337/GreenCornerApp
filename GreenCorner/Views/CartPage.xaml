@@ -16,14 +16,14 @@
             </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padded="0,10" ColumnDefinitions="80, *, Auto">
+                    <Grid Margin="0,10" ColumnDefinitions="80, *, Auto">
                         <Image Grid.Column="0" Source="{Binding Plant.ImageUrl}" Aspect="AspectFill" HeightRequest="80" WidthRequest="80"/>
                         <VerticalStackLayout Grid.Column="1" Padding="15,0,0,0" VerticalOptions="Center">
                             <Label Text="{Binding Plant.Name}" FontAttributes="Bold"/>
                             <Label Text="{Binding Plant.Price, StringFormat='${0:F2}'}" TextColor="{StaticResource Primary}"/>
                             <Label Text="{Binding Quantity, StringFormat='Qty: {0}'}" FontSize="12" TextColor="{StaticResource Gray500}"/>
                         </VerticalStackLayout>
-                        <ImageButton Grid.Column="2" Source="trash.png" 
+                        <ImageButton Grid.Column="2" Source="dotnet_bot.png" 
                                      Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=RemoveItemCommand}"
                                      CommandParameter="{Binding .}"
                                      HeightRequest="20" WidthRequest="20" VerticalOptions="Center"/>
@@ -31,7 +31,7 @@
                         <!-- Using text instead of icon for trash if icon missing -->
                         <Label Grid.Column="2" Text="X" TextColor="Red" FontAttributes="Bold"
                                HorizontalOptions="Center" VerticalOptions="Center"
-                               IsVisible="True"> <!-- Set IsVisible to false if using ImageButton with valid source -->
+                               IsVisible="False"> <!-- using ImageButton -->
                                <Label.GestureRecognizers>
                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=RemoveItemCommand}" CommandParameter="{Binding .}"/>
                                </Label.GestureRecognizers>
@@ -41,16 +41,20 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Border Grid.Row="1" Style="{StaticResource CardFrame}" Margin="0" BorderThickness="0,2,0,0">
-            <VerticalStackLayout Padding="20" Spacing="15" BackgroundColor="{StaticResource White}">
-                <FlexLayout JustifyContent="SpaceBetween">
-                    <Label Text="Total" Style="{StaticResource Headline2}"/>
-                    <Label Text="{Binding TotalAmount, StringFormat='${0:F2}'}" Style="{StaticResource Headline2}" TextColor="{StaticResource Primary}"/>
-                </FlexLayout>
-                
-                <Button Text="Checkout" Command="{Binding CheckoutCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
-            </VerticalStackLayout>
-        </Border>
+        <Grid Grid.Row="1" RowDefinitions="2,Auto" BackgroundColor="{StaticResource White}">
+            <BoxView Grid.Row="0" HeightRequest="2" BackgroundColor="{StaticResource TextLight}" />
+
+            <Border Grid.Row="1" StrokeThickness="0" BackgroundColor="{StaticResource White}">
+                <VerticalStackLayout Padding="20" Spacing="15">
+                    <FlexLayout JustifyContent="SpaceBetween">
+                        <Label Text="Total" Style="{StaticResource Headline2}"/>
+                        <Label Text="{Binding TotalAmount, StringFormat='${0:F2}'}" Style="{StaticResource Headline2}" TextColor="{StaticResource Primary}"/>
+                    </FlexLayout>
+
+                    <Button Text="Checkout" Command="{Binding CheckoutCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
     </Grid>
 
 </ContentPage>

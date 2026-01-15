@@ -17,7 +17,7 @@ public class PlantService
                 Id = 1,
                 Name = "Monstera Deliciosa",
                 Description = "The Monstera Deliciosa, also known as the Swiss Cheese Plant, is a tropical plant native to southern Mexico and Panama. It is famous for its large, perforated leaves.",
-                ImageUrl = "monstera.png", // Placeholder
+                ImageUrl = "monstera.jpg", 
                 Price = 45.00m,
                 Difficulty = "Easy",
                 LightRequirement = "Medium",
@@ -29,7 +29,7 @@ public class PlantService
                 Id = 2,
                 Name = "Ficus Lyrata",
                 Description = "Commonly known as the Fiddle-leaf Fig, it is popular for its broad, lyre-shaped leaves. It needs bright, filtered light and careful watering.",
-                ImageUrl = "ficus.png", // Placeholder
+                ImageUrl = "fikus.jpg", 
                 Price = 65.00m,
                 Difficulty = "Hard",
                 LightRequirement = "High",
@@ -41,7 +41,7 @@ public class PlantService
                 Id = 3,
                 Name = "Snake Plant",
                 Description = "Sansevieria trifasciata is an ideal plant for beginners. It thrives in low light and needs very little water.",
-                ImageUrl = "snake.png", // Placeholder
+                ImageUrl = "snake.jpg", 
                 Price = 25.00m,
                 Difficulty = "Easy",
                 LightRequirement = "Low",
@@ -53,7 +53,7 @@ public class PlantService
                 Id = 4,
                 Name = "Pothos",
                 Description = "Epipremnum aureum is a trailing vine that is very easy to care for and propagates easily in water.",
-                ImageUrl = "pothos.png", // Placeholder
+                ImageUrl = "default.jpg", // Fallback
                 Price = 15.00m,
                 Difficulty = "Easy",
                 LightRequirement = "Low",
@@ -65,7 +65,7 @@ public class PlantService
                 Id = 5,
                 Name = "Calathea Orbifolia",
                 Description = "Known for its large, round, striped leaves. It requires high humidity and consistent moisture.",
-                ImageUrl = "calathea.png", // Placeholder
+                ImageUrl = "default.jpg", // Fallback
                 Price = 35.00m,
                 Difficulty = "Medium",
                 LightRequirement = "Medium",
@@ -77,7 +77,7 @@ public class PlantService
                 Id = 6,
                 Name = "ZZ Plant",
                 Description = "Zamioculcas zamiifolia is drought tolerant and accepts low-light conditions.",
-                ImageUrl = "zz.png", // Placeholder
+                ImageUrl = "default.jpg", // Fallback
                 Price = 30.00m,
                 Difficulty = "Easy",
                 LightRequirement = "Low",

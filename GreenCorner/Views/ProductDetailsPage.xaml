@@ -7,54 +7,68 @@
              BackgroundColor="{StaticResource BackgroundLight}"
              Shell.TabBarIsVisible="False">
 
-    <ScrollView>
-        <VerticalStackLayout Spacing="20">
-            
-            <!-- Image Header -->
-            <Grid HeightRequest="400">
-                <Image Source="{Binding Plant.ImageUrl}" Aspect="AspectFill"/>
-                <Button Text="Back" Command="{Binding GoBackCommand}" 
-                        HorizontalOptions="Start" VerticalOptions="Start" Margin="20"
-                        Style="{StaticResource SecondaryButtonStyle}" BackgroundColor="{StaticResource White}"/>
-            </Grid>
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Spacing="0">
+                
+                <!-- Image Header -->
+                <Grid HeightRequest="350" BackgroundColor="#F0F0F0">
+                    <Image Source="{Binding Plant.ImageUrl}" Aspect="AspectFill" VerticalOptions="Start"/>
+                    <Button Text="Back" Command="{Binding GoBackCommand}" 
+                            HorizontalOptions="Start" VerticalOptions="Start" Margin="20,40"
+                            BackgroundColor="{StaticResource White}" TextColor="{StaticResource TextLight}"
+                            CornerRadius="20" HeightRequest="40" Padding="15,0"
+                            Shadow="{Null}"/>
+                </Grid>
 
-            <!-- Details Content -->
-            <VerticalStackLayout Padding="20" Spacing="15" BackgroundColor="{StaticResource BackgroundLight}" Margin="0,-30,0,0">
-                <Border Style="{StaticResource CardFrame}" Padding="20" Margin="0" Shadow="{Null}"> <!-- Reset shadow for inline container look or keep it -->
-                    <VerticalStackLayout Spacing="10">
-                        <Label Text="{Binding Plant.Name}" Style="{StaticResource Headline2}" TextColor="{StaticResource Primary}"/>
-                        
-                        <FlexLayout JustifyContent="SpaceBetween" AlignItems="Center">
-                             <Label Text="{Binding Plant.Price, StringFormat='${0:F2}'}" FontSize="24" FontAttributes="Bold" TextColor="{StaticResource TextLight}"/>
-                             <Label Text="{Binding Plant.Tag}" Style="{StaticResource BadgeLabel}"/>
-                        </FlexLayout>
+                <!-- Details Content with rounded top -->
+                <VerticalStackLayout Padding="30" Spacing="20" 
+                                     BackgroundColor="{StaticResource BackgroundLight}" 
+                                     Margin="0,-40,0,0">
+                    
+                    <Border StrokeThickness="0" BackgroundColor="{StaticResource BackgroundLight}" 
+                            StrokeShape="RoundRectangle 30,30,0,0"
+                            Padding="30,40,30,30" Margin="-30,0,-30,0"> 
+                            <!-- Negative margin to fill width inside the padded container, 
+                                 or better: redo structure. Let's simplify: -->
+                         <VerticalStackLayout Spacing="15">
+                            <Label Text="{Binding Plant.Name}" Style="{StaticResource Headline1}" TextColor="{StaticResource Primary}"/>
+                            
+                            <FlexLayout JustifyContent="SpaceBetween" AlignItems="Center">
+                                 <Label Text="{Binding Plant.Price, StringFormat='${0:F2}'}" FontSize="24" FontAttributes="Bold" TextColor="{StaticResource TextLight}"/>
+                                 <Label Text="{Binding Plant.Tag}" Style="{StaticResource BadgeLabel}" FontSize="14" Padding="12,6"/>
+                            </FlexLayout>
 
-                        <BoxView HeightRequest="1" Color="{StaticResource Gray200}" Margin="0,10"/>
+                            <BoxView HeightRequest="1" Color="{StaticResource Gray200}" Margin="0,15"/>
 
-                        <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
-                            <VerticalStackLayout Grid.Column="0">
-                                <Label Text="Difficulty" FontSize="12" TextColor="{StaticResource Gray500}"/>
-                                <Label Text="{Binding Plant.Difficulty}" FontAttributes="Bold"/>
-                            </VerticalStackLayout>
-                            <VerticalStackLayout Grid.Column="1">
-                                <Label Text="Light" FontSize="12" TextColor="{StaticResource Gray500}"/>
-                                <Label Text="{Binding Plant.LightRequirement}" FontAttributes="Bold"/>
-                            </VerticalStackLayout>
-                        </Grid>
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+                                <VerticalStackLayout Grid.Column="0">
+                                    <Label Text="Difficulty" FontSize="14" TextColor="{StaticResource Gray500}"/>
+                                    <Label Text="{Binding Plant.Difficulty}" FontAttributes="Bold" FontSize="16"/>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1">
+                                    <Label Text="Light" FontSize="14" TextColor="{StaticResource Gray500}"/>
+                                    <Label Text="{Binding Plant.LightRequirement}" FontAttributes="Bold" FontSize="16"/>
+                                </VerticalStackLayout>
+                            </Grid>
 
-                        <Label Text="Description" FontAttributes="Bold" Margin="0,10,0,0"/>
-                        <Label Text="{Binding Plant.Description}" LineHeight="1.5"/>
-
-                        <Button Text="{Binding AddToCartText}" 
-                                Command="{Binding AddToCartCommand}" 
-                                IsEnabled="{Binding IsAddedToCart, Converter={x:StaticResource InvertedBoolConverter}}" 
-                                Margin="0,20,0,0"
-                                Style="{StaticResource PrimaryButtonStyle}"/>
-                         <!-- Note: InvertedBoolConverter needs to be added to RESOURCES or just use simple logic in VM to disable command -->
-                    </VerticalStackLayout>
-                </Border>
+                            <Label Text="About this plant" FontAttributes="Bold" FontSize="18" Margin="0,20,0,5"/>
+                            <Label Text="{Binding Plant.Description}" Style="{StaticResource BodyText}"/>
+                         </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
             </VerticalStackLayout>
-        </VerticalStackLayout>
-    </ScrollView>
+        </ScrollView>
+        
+        <!-- Sticky Bottom Button -->
+        <Border Grid.Row="0" VerticalOptions="End" StrokeThickness="0" BackgroundColor="{StaticResource White}" Padding="20" Margin="0">
+             <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,-5" Radius="10" Opacity="0.1"/>
+            </Border.Shadow>
+            <Button Text="{Binding AddToCartText}" 
+                    Command="{Binding AddToCartCommand}" 
+                    Style="{StaticResource PrimaryButtonStyle}"/>
+        </Border>
+    </Grid>
 
 </ContentPage>

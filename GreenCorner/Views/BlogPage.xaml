@@ -6,22 +6,23 @@
              Title="Blog"
              BackgroundColor="{StaticResource BackgroundLight}">
 
-    <CollectionView ItemsSource="{Binding Posts}" Margin="20">
+    <CollectionView ItemsSource="{Binding Posts}" Margin="15">
         <CollectionView.ItemsLayout>
             <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <Border Style="{StaticResource CardFrame}">
+                <Border Style="{StaticResource CardFrame}" Padding="0" HeightRequest="120">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BlogViewModel}}, Path=GoToArticleCommand}" CommandParameter="{Binding .}"/>
                     </Border.GestureRecognizers>
-                    <Grid ColumnDefinitions="120, *" Padding="10" ColumnSpacing="15">
-                        <Image Grid.Column="0" Source="{Binding ImageUrl}" Aspect="AspectFill" HeightRequest="100"/>
-                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                           <Label Text="{Binding Title}" FontAttributes="Bold" MaxLines="2" LineBreakMode="TailTruncation" TextColor="{StaticResource Primary}"/>
-                           <Label Text="{Binding DatePublished, StringFormat='{0:MMMM dd, yyyy}'}" FontSize="12" TextColor="{StaticResource Gray500}" Margin="0,5,0,0"/>
-                           <Label Text="{Binding Excerpt}" FontSize="12" MaxLines="2" LineBreakMode="TailTruncation" Margin="0,5,0,0"/>
+                    <Grid ColumnDefinitions="120, *">
+                        <Image Grid.Column="0" Source="{Binding ImageUrl}" Aspect="AspectFill" BackgroundColor="#E0E0E0"/>
+                        
+                        <VerticalStackLayout Grid.Column="1" Padding="15,10" VerticalOptions="Center" Spacing="4">
+                           <Label Text="{Binding Title}" Style="{StaticResource Headline3}" FontSize="16" MaxLines="2" LineBreakMode="TailTruncation" TextColor="{StaticResource Primary}"/>
+                           <Label Text="{Binding DatePublished, StringFormat='{0:MMM dd, yyyy}'}" FontSize="12" TextColor="{StaticResource Gray500}"/>
+                           <Label Text="{Binding Excerpt}" Style="{StaticResource BodyText}" FontSize="13" MaxLines="2" LineBreakMode="TailTruncation"/>
                         </VerticalStackLayout>
                     </Grid>
                 </Border>

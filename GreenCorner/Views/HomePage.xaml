@@ -10,52 +10,116 @@
         <VerticalStackLayout Spacing="0">
             
             <!-- Hero Section -->
-            <Grid HeightRequest="600">
-                <!-- Background Image (Placeholder color for now, imagine an image here) -->
+            <Grid HeightRequest="450">
                 <Image Aspect="AspectFill" 
-                       Source="hero_plant.png"
-                       Opacity="0.8"/>
-                <BoxView Color="{StaticResource BackgroundLight}" Opacity="0.1"/>
+                       Source="hero_bg.png"
+                       VerticalOptions="Start"/>
+                <!-- Gradient Overlay for readability -->
+                <BoxView>
+                    <BoxView.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#80000000" Offset="0.0" />
+                            <GradientStop Color="Transparent" Offset="0.5" />
+                            <GradientStop Color="#CCFDFDF8" Offset="0.9" />
+                            <GradientStop Color="#FFFDFDF8" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </BoxView.Background>
+                </BoxView>
 
-                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20" Padding="30">
-                    <Label Text="Plants that make a house a home."
+                <VerticalStackLayout VerticalOptions="End" HorizontalOptions="Center" Spacing="15" Padding="30, 0, 30, 60">
+                    <Label Text="Plants make a house a home."
                            Style="{StaticResource Headline1}"
                            HorizontalTextAlignment="Center"
                            TextColor="{StaticResource PrimaryDark}"/>
                     
                     <Label Text="Discover our curated collection of indoor plants."
-                           FontSize="18"
-                           HorizontalTextAlignment="Center"
-                           TextColor="{StaticResource TextLight}"/>
+                           Style="{StaticResource BodyText}"
+                           FontSize="16"
+                           HorizontalTextAlignment="Center"/>
 
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20" Margin="0,20,0,0">
-                        <Button Text="View Catalog" 
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="15" Margin="0,15,0,0">
+                        <Button Text="Shop Now" 
                                 Command="{Binding GoToCatalogCommand}"
-                                Style="{StaticResource PrimaryButtonStyle}"/>
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                WidthRequest="140"/>
                         
                         <Button Text="Read Blog" 
                                 Command="{Binding GoToBlogCommand}"
-                                Style="{StaticResource SecondaryButtonStyle}"/>
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                WidthRequest="140"/>
                     </StackLayout>
                 </VerticalStackLayout>
             </Grid>
 
-            <!-- Featured Section -->
-            <VerticalStackLayout Padding="20" Spacing="15" BackgroundColor="{StaticResource White}">
-                <Label Text="Popular Choices" Style="{StaticResource Headline2}" Margin="0,10,0,0"/>
+            <!-- Categories Section (Emoji Icons) -->
+            <Grid ColumnDefinitions="*,*,*" Padding="20,10" ColumnSpacing="15">
+                <VerticalStackLayout Spacing="5">
+                    <Border StrokeShape="RoundRectangle 20" HeightRequest="90" WidthRequest="90" BackgroundColor="#E8F5E9" StrokeThickness="0">
+                        <Label Text="🌿" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Label Text="Indoor" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{StaticResource TextLight}"/>
+                </VerticalStackLayout>
+                 <VerticalStackLayout Grid.Column="1" Spacing="5">
+                    <Border StrokeShape="RoundRectangle 20" HeightRequest="90" WidthRequest="90" BackgroundColor="#FFF3E0" StrokeThickness="0">
+                        <Label Text="🌳" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Label Text="Outdoor" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{StaticResource TextLight}"/>
+                </VerticalStackLayout>
+                 <VerticalStackLayout Grid.Column="2" Spacing="5">
+                    <Border StrokeShape="RoundRectangle 20" HeightRequest="90" WidthRequest="90" BackgroundColor="#E0F7FA" StrokeThickness="0">
+                        <Label Text="🌵" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Label Text="Succulents" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{StaticResource TextLight}"/>
+                </VerticalStackLayout>
+            </Grid>
 
-                <CollectionView ItemsSource="{Binding PopularPlants}" HeightRequest="300">
+            <!-- Featured Section -->
+            <VerticalStackLayout Padding="20, 30, 20, 50" Spacing="15">
+                <FlexLayout JustifyContent="SpaceBetween" AlignItems="End">
+                    <Label Text="Popular Choices" Style="{StaticResource Headline2}"/>
+                    <Label Text="See all" TextColor="{StaticResource Primary}" FontAttributes="Bold">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToCatalogCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </FlexLayout>
+
+                <CollectionView ItemsSource="{Binding PopularPlants}" HeightRequest="320">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Border Style="{StaticResource CardFrame}" WidthRequest="200" HeightRequest="280">
-                                <Grid RowDefinitions="*,Auto,Auto" Padding="10">
-                                    <Image Grid.Row="0" Source="{Binding ImageUrl}" Aspect="AspectFit" HeightRequest="150"/>
-                                    <Label Grid.Row="1" Text="{Binding Name}" FontAttributes="Bold" FontSize="16" Margin="0,10,0,0"/>
-                                    <Label Grid.Row="1" Text="{Binding Price, StringFormat='${0:F2}'}" HorizontalOptions="End" VerticalOptions="Start" Margin="0,10,0,0" TextColor="{StaticResource Primary}"/>
-                                    <Label Grid.Row="2" Text="{Binding Tag}" FontSize="12" TextColor="{StaticResource Gray500}"/>
+                            <Border Style="{StaticResource CardFrame}" WidthRequest="200" HeightRequest="300" Margin="0,5,5,10">
+                                <Grid RowDefinitions="160, *, Auto" Padding="0">
+                                    <!-- Image Area -->
+                                    <Grid Grid.Row="0" BackgroundColor="#F5F5F5">
+                                        <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
+                                        <Label Text="{Binding Tag}" 
+                                               Style="{StaticResource BadgeLabel}"
+                                               HorizontalOptions="Start" 
+                                               VerticalOptions="Start"
+                                               Margin="10"/>
+                                    </Grid>
+                                    
+                                    <!-- Content -->
+                                    <VerticalStackLayout Grid.Row="1" Padding="12,10,12,0" Spacing="2">
+                                        <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16" LineBreakMode="TailTruncation"/>
+                                        <Label Text="{Binding Difficulty}" FontSize="12" TextColor="{StaticResource Gray500}"/>
+                                    </VerticalStackLayout>
+                                    
+                                    <!-- Footer -->
+                                    <FlexLayout Grid.Row="2" JustifyContent="SpaceBetween" AlignItems="Center" Padding="12,0,12,12">
+                                        <Label Text="{Binding Price, StringFormat='${0:F2}'}" TextColor="{StaticResource Primary}" FontAttributes="Bold" FontSize="16"/>
+                                        <Button Text="+" 
+                                                Padding="0"
+                                                HeightRequest="30"
+                                                WidthRequest="30"
+                                                CornerRadius="15"
+                                                FontSize="18"
+                                                BackgroundColor="{StaticResource Secondary}"
+                                                TextColor="{StaticResource PrimaryDark}"/>
+                                    </FlexLayout>
                                 </Grid>
                             </Border>
                         </DataTemplate>

@@ -8,34 +8,41 @@
 
     <Grid RowDefinitions="Auto, *">
         <!-- Filter Header -->
-        <ScrollView Grid.Row="0" Orientation="Horizontal" Padding="15,10" HorizontalScrollBarVisibility="Never">
+        <ScrollView Grid.Row="0" Orientation="Horizontal" Padding="15,10" HorizontalScrollBarVisibility="Never" HeightRequest="60">
             <HorizontalStackLayout Spacing="10">
-                <Button Text="All" Command="{Binding FilterByCommand}" CommandParameter="All" Style="{StaticResource PrimaryButtonStyle}"/>
-                <Button Text="Easy" Command="{Binding FilterByCommand}" CommandParameter="Easy" Style="{StaticResource SecondaryButtonStyle}"/>
-                <Button Text="Medium" Command="{Binding FilterByCommand}" CommandParameter="Medium" Style="{StaticResource SecondaryButtonStyle}"/>
-                <Button Text="Hard" Command="{Binding FilterByCommand}" CommandParameter="Hard" Style="{StaticResource SecondaryButtonStyle}"/>
+                <!-- Using simpler buttons for filters to avoid huge primary buttons -->
+                <Button Text="All" Command="{Binding FilterByCommand}" CommandParameter="All" 
+                        HeightRequest="40" CornerRadius="20" Padding="15,0"/>
+                <Button Text="Easy" Command="{Binding FilterByCommand}" CommandParameter="Easy" 
+                        HeightRequest="40" CornerRadius="20" Padding="15,0" BackgroundColor="Transparent" TextColor="{StaticResource TextLight}" BorderColor="{StaticResource Gray300}" BorderWidth="1"/>
+                <Button Text="Medium" Command="{Binding FilterByCommand}" CommandParameter="Medium" 
+                        HeightRequest="40" CornerRadius="20" Padding="15,0" BackgroundColor="Transparent" TextColor="{StaticResource TextLight}" BorderColor="{StaticResource Gray300}" BorderWidth="1"/>
+                <Button Text="Hard" Command="{Binding FilterByCommand}" CommandParameter="Hard" 
+                        HeightRequest="40" CornerRadius="20" Padding="15,0" BackgroundColor="Transparent" TextColor="{StaticResource TextLight}" BorderColor="{StaticResource Gray300}" BorderWidth="1"/>
             </HorizontalStackLayout>
         </ScrollView>
 
         <!-- Product Grid -->
-        <CollectionView Grid.Row="1" ItemsSource="{Binding FilteredPlants}" Margin="15">
+        <CollectionView Grid.Row="1" ItemsSource="{Binding FilteredPlants}" Margin="15,5,15,0">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="15" VerticalItemSpacing="15"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border Style="{StaticResource CardFrame}" Padding="0">
+                    <Border Style="{StaticResource CardFrame}" Padding="0" HeightRequest="260">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CatalogViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}"/>
                         </Border.GestureRecognizers>
-                        <VerticalStackLayout Spacing="0">
-                            <Image Source="{Binding ImageUrl}" Aspect="AspectFill" HeightRequest="150" BackgroundColor="#E1E1E1"/>
-                            <VerticalStackLayout Padding="10">
-                                <Label Text="{Binding Name}" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
-                                <Label Text="{Binding Price, StringFormat='${0:F2}'}" TextColor="{StaticResource Primary}" FontAttributes="Bold"/>
+                        <Grid RowDefinitions="150, *">
+                            <Image Grid.Row="0" Source="{Binding ImageUrl}" Aspect="AspectFill" BackgroundColor="#F5F5F5"/>
+                            <Label Grid.Row="0" Text="{Binding Tag}" Style="{StaticResource BadgeLabel}" HorizontalOptions="Start" VerticalOptions="Start" Margin="10"/>
+
+                            <VerticalStackLayout Grid.Row="1" Padding="12" Spacing="4" VerticalOptions="Center">
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="15" LineBreakMode="TailTruncation"/>
                                 <Label Text="{Binding Difficulty}" FontSize="12" TextColor="{StaticResource Gray500}"/>
+                                <Label Text="{Binding Price, StringFormat='${0:F2}'}" TextColor="{StaticResource Primary}" FontAttributes="Bold" Margin="0,5,0,0"/>
                             </VerticalStackLayout>
-                        </VerticalStackLayout>
+                        </Grid>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
