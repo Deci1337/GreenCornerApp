@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:GreenCorner.ViewModels"
+             x:Class="GreenCorner.Views.HomePage"
+             Title="GreenCorner"
+             BackgroundColor="{StaticResource BackgroundLight}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+            
+            <!-- Hero Section -->
+            <Grid HeightRequest="600">
+                <!-- Background Image (Placeholder color for now, imagine an image here) -->
+                <Image Aspect="AspectFill" 
+                       Source="hero_plant.png"
+                       Opacity="0.8"/>
+                <BoxView Color="{StaticResource BackgroundLight}" Opacity="0.1"/>
+
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20" Padding="30">
+                    <Label Text="Plants that make a house a home."
+                           Style="{StaticResource Headline1}"
+                           HorizontalTextAlignment="Center"
+                           TextColor="{StaticResource PrimaryDark}"/>
+                    
+                    <Label Text="Discover our curated collection of indoor plants."
+                           FontSize="18"
+                           HorizontalTextAlignment="Center"
+                           TextColor="{StaticResource TextLight}"/>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20" Margin="0,20,0,0">
+                        <Button Text="View Catalog" 
+                                Command="{Binding GoToCatalogCommand}"
+                                Style="{StaticResource PrimaryButtonStyle}"/>
+                        
+                        <Button Text="Read Blog" 
+                                Command="{Binding GoToBlogCommand}"
+                                Style="{StaticResource SecondaryButtonStyle}"/>
+                    </StackLayout>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Featured Section -->
+            <VerticalStackLayout Padding="20" Spacing="15" BackgroundColor="{StaticResource White}">
+                <Label Text="Popular Choices" Style="{StaticResource Headline2}" Margin="0,10,0,0"/>
+
+                <CollectionView ItemsSource="{Binding PopularPlants}" HeightRequest="300">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource CardFrame}" WidthRequest="200" HeightRequest="280">
+                                <Grid RowDefinitions="*,Auto,Auto" Padding="10">
+                                    <Image Grid.Row="0" Source="{Binding ImageUrl}" Aspect="AspectFit" HeightRequest="150"/>
+                                    <Label Grid.Row="1" Text="{Binding Name}" FontAttributes="Bold" FontSize="16" Margin="0,10,0,0"/>
+                                    <Label Grid.Row="1" Text="{Binding Price, StringFormat='${0:F2}'}" HorizontalOptions="End" VerticalOptions="Start" Margin="0,10,0,0" TextColor="{StaticResource Primary}"/>
+                                    <Label Grid.Row="2" Text="{Binding Tag}" FontSize="12" TextColor="{StaticResource Gray500}"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

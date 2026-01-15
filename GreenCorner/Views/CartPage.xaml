@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:GreenCorner.ViewModels"
+             x:Class="GreenCorner.Views.CartPage"
+             Title="Cart"
+             BackgroundColor="{StaticResource BackgroundLight}">
+
+    <Grid RowDefinitions="*, Auto">
+        <CollectionView Grid.Row="0" ItemsSource="{Binding CartItems}" Margin="20">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+                    <Label Text="Your cart is empty" Style="{StaticResource Headline2}" TextColor="{StaticResource Gray400}"/>
+                    <Label Text="Go find some green friends!" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padded="0,10" ColumnDefinitions="80, *, Auto">
+                        <Image Grid.Column="0" Source="{Binding Plant.ImageUrl}" Aspect="AspectFill" HeightRequest="80" WidthRequest="80"/>
+                        <VerticalStackLayout Grid.Column="1" Padding="15,0,0,0" VerticalOptions="Center">
+                            <Label Text="{Binding Plant.Name}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Plant.Price, StringFormat='${0:F2}'}" TextColor="{StaticResource Primary}"/>
+                            <Label Text="{Binding Quantity, StringFormat='Qty: {0}'}" FontSize="12" TextColor="{StaticResource Gray500}"/>
+                        </VerticalStackLayout>
+                        <ImageButton Grid.Column="2" Source="trash.png" 
+                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=RemoveItemCommand}"
+                                     CommandParameter="{Binding .}"
+                                     HeightRequest="20" WidthRequest="20" VerticalOptions="Center"/>
+                        
+                        <!-- Using text instead of icon for trash if icon missing -->
+                        <Label Grid.Column="2" Text="X" TextColor="Red" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center"
+                               IsVisible="True"> <!-- Set IsVisible to false if using ImageButton with valid source -->
+                               <Label.GestureRecognizers>
+                                   <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=RemoveItemCommand}" CommandParameter="{Binding .}"/>
+                               </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Border Grid.Row="1" Style="{StaticResource CardFrame}" Margin="0" BorderThickness="0,2,0,0">
+            <VerticalStackLayout Padding="20" Spacing="15" BackgroundColor="{StaticResource White}">
+                <FlexLayout JustifyContent="SpaceBetween">
+                    <Label Text="Total" Style="{StaticResource Headline2}"/>
+                    <Label Text="{Binding TotalAmount, StringFormat='${0:F2}'}" Style="{StaticResource Headline2}" TextColor="{StaticResource Primary}"/>
+                </FlexLayout>
+                
+                <Button Text="Checkout" Command="{Binding CheckoutCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+
+</ContentPage>

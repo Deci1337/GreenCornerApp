@@ -3,12 +3,31 @@
     x:Class="GreenCorner.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:GreenCorner"
-    Title="GreenCorner">
+    xmlns:views="clr-namespace:GreenCorner.Views"
+    Title="GreenCorner"
+    BackgroundColor="{StaticResource BackgroundLight}"
+    Shell.TabBarBackgroundColor="{StaticResource BackgroundLight}"
+    Shell.TabBarForegroundColor="{StaticResource Gray500}"
+    Shell.TabBarTitleColor="{StaticResource Gray500}"
+    Shell.TabBarUnselectedColor="{StaticResource Gray500}">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="Home" Icon="home.png"> 
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" Route="HomePage" />
+        </Tab>
+        <Tab Title="Catalog" Icon="catalog.png">
+            <ShellContent ContentTemplate="{DataTemplate views:CatalogPage}" Route="CatalogPage" />
+        </Tab>
+        <Tab Title="Blog" Icon="blog.png">
+            <ShellContent ContentTemplate="{DataTemplate views:BlogPage}" Route="BlogPage" />
+        </Tab>
+        <Tab Title="Cart" Icon="cart.png">
+            <ShellContent ContentTemplate="{DataTemplate views:CartPage}" Route="CartPage" />
+        </Tab>
+        <Tab Title="About" Icon="info.png">
+            <ShellContent ContentTemplate="{DataTemplate views:AboutPage}" Route="AboutPage" />
+        </Tab>
+        <!-- Placeholder for About/Contacts if needed in tabs, or can be in flyout -->
+    </TabBar>
 
 </Shell>

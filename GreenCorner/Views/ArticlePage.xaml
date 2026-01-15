@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:GreenCorner.ViewModels"
+             x:Class="GreenCorner.Views.ArticlePage"
+             Title="Article"
+             BackgroundColor="{StaticResource BackgroundLight}"
+             Shell.TabBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Image Source="{Binding Post.ImageUrl}" Aspect="AspectFill" HeightRequest="250"/>
+            
+            <VerticalStackLayout Padding="20" Spacing="15" Margin="0,-20,0,0" BackgroundColor="{StaticResource BackgroundLight}">
+                 <Label Text="{Binding Post.Title}" Style="{StaticResource Headline2}" TextColor="{StaticResource PrimaryDark}"/>
+                 
+                 <HorizontalStackLayout Spacing="10">
+                     <Label Text="{Binding Post.Author}" FontAttributes="Bold" FontSize="12"/>
+                     <Label Text="|" FontSize="12" TextColor="{StaticResource Gray400}"/>
+                     <Label Text="{Binding Post.DatePublished, StringFormat='{0:MMMM dd, yyyy}'}" FontSize="12" TextColor="{StaticResource Gray500}"/>
+                 </HorizontalStackLayout>
+
+                 <BoxView Color="{StaticResource Secondary}" HeightRequest="2" WidthRequest="50" HorizontalOptions="Start"/>
+
+                 <Label Text="{Binding Post.Content}" LineHeight="1.6" Margin="0,10,0,0"/>
+                 
+                 <Button Text="Back to Blog" Command="{Binding GoBackCommand}" 
+                         Style="{StaticResource SecondaryButtonStyle}"
+                         HorizontalOptions="Center" Margin="0,30"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

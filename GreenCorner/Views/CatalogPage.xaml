@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:GreenCorner.ViewModels"
+             x:Class="GreenCorner.Views.CatalogPage"
+             Title="Catalog"
+             BackgroundColor="{StaticResource BackgroundLight}">
+
+    <Grid RowDefinitions="Auto, *">
+        <!-- Filter Header -->
+        <ScrollView Grid.Row="0" Orientation="Horizontal" Padding="15,10" HorizontalScrollBarVisibility="Never">
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="All" Command="{Binding FilterByCommand}" CommandParameter="All" Style="{StaticResource PrimaryButtonStyle}"/>
+                <Button Text="Easy" Command="{Binding FilterByCommand}" CommandParameter="Easy" Style="{StaticResource SecondaryButtonStyle}"/>
+                <Button Text="Medium" Command="{Binding FilterByCommand}" CommandParameter="Medium" Style="{StaticResource SecondaryButtonStyle}"/>
+                <Button Text="Hard" Command="{Binding FilterByCommand}" CommandParameter="Hard" Style="{StaticResource SecondaryButtonStyle}"/>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- Product Grid -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding FilteredPlants}" Margin="15">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="15" VerticalItemSpacing="15"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Style="{StaticResource CardFrame}" Padding="0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CatalogViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="0">
+                            <Image Source="{Binding ImageUrl}" Aspect="AspectFill" HeightRequest="150" BackgroundColor="#E1E1E1"/>
+                            <VerticalStackLayout Padding="10">
+                                <Label Text="{Binding Name}" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
+                                <Label Text="{Binding Price, StringFormat='${0:F2}'}" TextColor="{StaticResource Primary}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Difficulty}" FontSize="12" TextColor="{StaticResource Gray500}"/>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
